@@ -1,0 +1,59 @@
+[package]
+name = "fission"
+version = "0.1.0"
+edition = "2021"
+authors = ["Fission Dev Team"]
+description = "Next-Gen Dynamic Instrumentation Platform"
+license = "MIT"
+repository = "https://github.com/sjkim1127/Fission"
+
+# Release optimizations: strip debug symbols, aggressive optimization
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+codegen-units = 1
+
+[features]
+default = []
+# Enable Python scripting support (requires Python 3.x installed)
+python = ["pyo3"]
+
+[dependencies]
+# 1. GUI & Rendering
+eframe = "0.27"  # egui framework wrapper
+egui = "0.27"    # Immediate mode GUI
+
+# 2. CLI & Input
+reedline = "0.30" # NuShell's powerful CLI library (autocomplete, history)
+clap = { version = "4.5", features = ["derive"] } # Command line argument parsing
+
+# 3. Binary Parsing & Disassembly
+goblin = "0.8"   # PE/ELF/Mach-O parsing
+iced-x86 = "1.21" # x86/x64 disassembly (fastest)
+
+# 4. Scripting (Python) - Optional, requires Python 3.x
+pyo3 = { version = "0.21", features = ["auto-initialize"], optional = true }
+
+# 5. Utilities
+anyhow = "1.0"      # Error handling
+thiserror = "1.0"   # Custom error definitions
+log = "0.4"         # Logging interface
+env_logger = "0.11" # Logging implementation
+hex = "0.4"         # Hex dump utilities
+colored = "2.1"     # CLI color output
+
+# System & Debugging (Windows Target)
+# Only enable required features for faster build times
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.54", features = [
+    "Win32_System_Diagnostics_Debug", # DebugActiveProcess, WaitForDebugEvent
+    "Win32_System_Threading",         # OpenProcess, CreateRemoteThread
+    "Win32_System_Memory",            # VirtualAllocEx, WriteProcessMemory
+    "Win32_Foundation",               # BOOL, HANDLE
+    "Win32_Security",                 # Security attributes
+] }
+
+# Linux debugging support
+[target.'cfg(target_os = "linux")'.dependencies]
+nix = { version = "0.28", features = ["ptrace", "process"] }

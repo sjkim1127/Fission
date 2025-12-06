@@ -1,0 +1,35 @@
+# Rust build artifacts
+/target/
+/target2/
+
+# Cargo lock for binaries (optional, some prefer to commit it)
+# Cargo.lock
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Debug files
+*.pdb
+
+# Python cache (if using Python scripting)
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
