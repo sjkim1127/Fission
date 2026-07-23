@@ -1,3 +1,9 @@
+>[!IMPORTANT]
+>This repository has moved to **[fission-systems/Fission](https://github.com/fission-systems/Fission)**.
+>All development, releases, and issues are tracked there. This repository is archived.
+
+---
+
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/sjkim1127/Fission/main/image/logo-github.png" alt="Fission - reverse engineering workspace" width="760" />
@@ -522,7 +528,8 @@ fission_cli run <binary>
 fission_cli run <binary> --max-inst 10000
 
 # Provide stdin mock data
-fission_cli run <binary> --stdin "hello\n"
+fission_cli run <binary> --stdin "hello
+"
 
 # Emit full instruction trace (JSON)
 fission_cli run <binary> --trace --json
